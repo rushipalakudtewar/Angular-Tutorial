@@ -1,0 +1,7 @@
+<div *ngIf="isLoading">Loading...</div>
+<div *ngIf="errorMessage">{{ errorMessage }}</div>
+<ul *ngIf="!isLoading && !errorMessage">
+  <li *ngFor="let user of users">
+    {{ user.name }} ({{ user.username }}) - {{ user.email }}
+  </li>
+</ul>
