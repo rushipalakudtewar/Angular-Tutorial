@@ -1,0 +1,29 @@
+<div>
+
+    <h2 style="text-align: center;">{{blogTitle}}</h2>
+    <div *ngIf="!blogInfo.Errormessage">
+        <button mat-raised-button color="primary" (click)="addBlog()">Add Blog</button>
+        <mat-card *ngIf="!blogInfo.bloglist.length">
+            <p style="text-align: center;">No Data Found!</p>
+        </mat-card>
+        <mat-card *ngFor="let blog of blogInfo.bloglist" style="margin-top: 15px;">
+            <mat-toolbar-row>
+                <h4>{{blog.title}}</h4>
+                <span class="example-spacer"></span>
+                <mat-icon class="example-icon" aria-hidden="false" aria-label="Example heart icon" style="cursor: pointer;" color="primary" (click)="editBlog(blog.id)">edit</mat-icon>
+                <mat-icon class="example-icon" aria-hidden="false" aria-label="Example delete icon" style="cursor: pointer;" color="warn" (click)="deleteBlog(blog.id)">delete</mat-icon>
+              </mat-toolbar-row>
+            <mat-card-content>
+                <p>{{blog.description}}</p>
+            </mat-card-content>
+        </mat-card>
+    </div>
+    <mat-card *ngIf="blogInfo.Errormessage">
+        <mat-card-header>
+            <h1>Error occured</h1>
+        </mat-card-header>
+        <mat-card-content>
+            <p style="color: red;">{{blogInfo.Errormessage}}</p>
+        </mat-card-content>
+    </mat-card>
+</div>

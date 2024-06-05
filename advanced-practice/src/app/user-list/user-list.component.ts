@@ -26,4 +26,8 @@ export class UserListComponent {
       }
     })
   }
+  onActive()
+  {
+    this.userService.activatedEmmiter.next(true)
+  }
 }

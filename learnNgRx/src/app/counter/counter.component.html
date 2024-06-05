@@ -1,0 +1,21 @@
+<div class="container">
+    <div>
+        <h1>Counter App</h1>
+    </div>
+    <p>{{ counter }}</p>
+    <!-- <p>{{(counter$ | async)?.counter }}</p> -->
+
+    <div>
+        <button mat-raised-button color="primary" (click)="increment()">Increment</button>
+        <button  mat-raised-button color="primary" (click)="decrement()">Decrement</button>
+        <button mat-raised-button color="warn" (click)="reset()">Reset</button>
+        <button  mat-raised-button color="primary" (click)="changeName()">Rename</button>
+        <!-- <button class="bg-blue-500 hover:bg-blue-800 px-4 py-2 m-2 text-white" (click)="increment()">Increment</button>
+        <button class="bg-green-500 hover:bg    -green-800 px-4 py-2 m-2 text-white" (click)="decrement()">Decrement</button>
+        <button class="bg-red-500 hover:bg-red-800 px-4 py-2 m-2 text-white" (click)="reset()">Reset</button> -->
+    </div>
+    <p>{{channelname}}</p>
+    <!-- <p>{{(counter$ | async)?.channelname}}</p> -->
+</div>
+
+<app-custom-counter/>

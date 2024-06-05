@@ -1,0 +1,37 @@
+<form #formSubmit="ngForm" (ngSubmit)="onSubmit(formSubmit)">
+  <input
+    type="text"
+    placeholder="Enter the name"
+    name="name"
+    value="name"
+    required
+    ngModel
+  />
+  <br /><br />
+  <input
+    type="email"
+    placeholder="Enter the email"
+    name="email"
+    value="email"
+    ngModel
+    required
+    email
+    #email="ngModel"
+  />
+  <br>
+  <span *ngIf="!email.valid && email.touched" class="fontChange">Enter valid email address</span>
+  <br />
+  <input
+    type="text"
+    placeholder="Enter the address"
+    name="address"
+    value="address"
+    ngModel
+    required
+  />
+  <br /><br />
+  <div class="radio" *ngFor="let gender of genders">
+    <input type="radio" name="gender"  ngModel [value]="gender" required/>{{gender}}
+  </div>
+  <button [disabled]="!formSubmit.valid">Submit</button>
+</form>

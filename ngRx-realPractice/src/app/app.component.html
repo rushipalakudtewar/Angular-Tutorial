@@ -1,0 +1,20 @@
+<!-- <h1 class="text-blue-500">Helo workd</h1> -->
+<nav class="h-[10vh] bg-white shadow-lg text-black">
+  <ul class="flex justify-between items-center px-14 pt-5">
+    <div class="flex flex-row items-center ">
+      <ul class="flex space-x-4">
+        <li>
+          <a routerLink="/" class="text-2xl cursor-pointer">NGRX Project</a>
+        </li>
+        <li>
+          <a routerLink="/counter" routerLinkActive="active" class="text-lg ml-10 text-slate-500 cursor-pointer">Counter</a>
+        </li>
+        <li>
+          <a routerLink="/products" routerLinkActive="active" class="text-lg ml-4 text-slate-500 cursor-pointer">Products</a>
+        </li>
+      </ul>
+    </div>
+    <li routerLink="/cart" RouterLinkActive="active"  class="float-right cursor-pointer text-slate-500">Cart (<span>0</span>) </li>
+  </ul>
+</nav>
+<router-outlet/>

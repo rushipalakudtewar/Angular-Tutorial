@@ -1,0 +1,37 @@
+<div class="row">
+    <div class="col-lg-8">
+        <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+            <input type="text" name="username" formControlName="username"><br><br>
+            <input type="email" name="email" formControlName="email"><br><br>
+            <div *ngFor="let gender of genders">
+                <input type="radio" formControlName="gender" [value]="gender">{{gender}}
+            </div><br><br>
+            <!-- <div formArrayName="hobbies">
+                <h4>Your hobbies</h4>
+                <button (click)="onAddHobbies()">Add hobby</button>
+                <div *ngFor="let hobby of signupForm.get('hobbies').controls; let i=index" [formGroupName]="i">
+                    <input type="text" [formControlName]="i">
+                </div>
+            </div> -->
+            <button>Submit</button><br><br>
+            <button (click)="onPageLoad()">On Page Load</button>
+            <button (click)="clearPosts()">Clear Posts</button>
+        </form>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-10">
+        <div *ngIf="loadedPosts.length<0 && !isFetching">
+            <h1>No post are avaliable</h1>
+        </div>
+        <div *ngIf="loadedPosts.length>0 && !isFetching">
+            <ul *ngFor="let post of loadedPosts" >
+                <li>{{post.username}}</li>
+                <li>{{post.email}}</li>
+                <li>{{post.gender}}</li>
+            </ul>
+        </div>
+        <p *ngIf="isFetching">Loading...</p>
+    </div>
+</div>

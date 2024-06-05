@@ -1,0 +1,7 @@
+input.ng-invalid{
+    border: 1px solid red;
+}
+.fontChange{
+    font-size: small;
+    font-family:'Courier New', Courier, monospace;
+}

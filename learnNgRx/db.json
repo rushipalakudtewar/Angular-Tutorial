@@ -1,0 +1,14 @@
+{
+  "Blogs": [
+    {
+      "id": 1,
+      "title": "Angular20",
+      "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil nesciunt accusamus veniam voluptatem ratione quod suscipit explicabo impedit fugit. Minima nisi voluptatem iusto voluptatum nostrum nemo dicta nulla illo assumenda."
+    },
+    {
+      "id": 2,
+      "title": "React17",
+      "description": "React (also known as React.js or ReactJS) is a free and open-source front-end JavaScript library for building user interfaces based on components. It is maintained by Meta (formerly Facebook) and a community of individual developers and companies. React can be used to develop single-page, mobile, "
+    }
+  ]
+}
