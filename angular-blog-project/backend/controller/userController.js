@@ -1,14 +1,14 @@
 const User = require("../model/userModel");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-
+// const session = require("express-session");
 
 exports.registerUser = async(req,res) =>{
     try{    
-        const { username, email, password } = req.body;
-        if(!username && !email && !password) 
+        const { firstname ,lastname, email, password } = req.body;
+        if(!firstname && !lastname && !email && !password) 
             {   
-                res.json({
+                return res.status(400).json({
                     success:false,
                     message:"All fields are required"
                 })
@@ -16,7 +16,7 @@ exports.registerUser = async(req,res) =>{
         const existingUser = await User.findOne({email})
         if(existingUser)
             {
-                res.status(400).json({
+                return res.status(400).json({
                     success:false,
                     message:'Email already registered'
                 })
@@ -26,13 +26,13 @@ exports.registerUser = async(req,res) =>{
                 hashedpassword = await bcrypt.hash(password,10)
             }   
             catch(err){
-                res.status(400).json({
+                return res.status(400).json({
                     success:false,
                     message:"Failed to generate secure password"
                 })
             }
         const userData = await User.create({
-            username,email,password:hashedpassword
+            firstname,lastname,email,password:hashedpassword
         });
         res.status(201).json({
             success:true,
@@ -41,7 +41,7 @@ exports.registerUser = async(req,res) =>{
         })
     }
     catch(err){
-        res.status(400).json({
+        res.status(500).json({
             success:false,
             error:`Error is ${err}`
         })
@@ -53,7 +53,7 @@ exports.loginUser = async(req,res) => {
         const {email, password} = req.body;
         if(!email && !password)
             {
-                res.status(400).json({
+                return res.status(400).json({
                     success:false,
                     message:"All fields are required"
                 })
@@ -61,7 +61,7 @@ exports.loginUser = async(req,res) => {
         const user = await User.findOne({email});
         if(!user)
             {
-                res.status(400).json({
+                return res.status(400).json({
                     success:false,
                     message:"User is not registered"
                 })
@@ -82,18 +82,22 @@ exports.loginUser = async(req,res) => {
         
                 const options={
                     expires:new Date(Date.now() + 3 * 24 * 60 * 60 * 1000),
-                    httpOnly:true
+                    httpOnly:true,
+                    // secure:process.env.JWT_SECRET === 'bloggingsecuresite',
+                    // path:'/'
                 }
-                res.cookie('token',token,options).status(200).json({
+                // console.log("cookie",token);
+                res.cookie('token',token,options)
+                res.status(200).json({
                     success:true,
                     token,
                     user,
-                    message:"User logged in successfully"
+                    message:"Loggedin successfully"
                 })
            }
             else
             {
-                res.status(400).json({
+                return res.status(400).json({
                     success:false,
                     message:"Password is not matching"
                 })
@@ -101,20 +105,60 @@ exports.loginUser = async(req,res) => {
     }
     catch(err)
     {
-        res.status(404).json({
+        res.status(500).json({
             success:false,
-            message:`Failed to login ${err}`
+            message:`Failed to login ${err.message}`
         })
     }
 }
 
+
+exports.updateProfileImage = async (req, res) => {
+    try {
+        // Find the user by ID
+        const user = await User.findById(req.user._id);
+
+        // Check if the user exists
+        if (!user) {
+            return res.status(404).json({
+                success: false,
+                message: 'User not found'
+            });
+        }
+
+        // Check if a file was uploaded
+        if (req.file) {
+            // Update the user's profile image
+            user.profileImage = {
+                originalName: req.file.originalname,
+                fileName: req.file.filename
+            };
+        }
+
+        // Save the updated user document
+        await user.save();
+
+        // Return a success response with the updated user document
+        res.status(200).json({
+            success: true,
+            message: 'Profile image updated successfully',
+            user
+        });
+    } catch (error) {
+        // Handle errors and return a failure response
+        res.status(500).json({
+            success: false,
+            message: `Failed to update profile image ${err.message}`
+        });
+    }
+};
 exports.getUser = async(req,res) =>{
     try{    
     //    const userId = req.params.id;
         const userData = await User.findById(req.user._id);
         if(!userData)
             {
-                res.status(400).json({
+                return res.status(400).json({
                     success:false,
                     message:"User not found"
                 })
@@ -127,9 +171,69 @@ exports.getUser = async(req,res) =>{
     }
     catch(err)
     {
-        res.status(400).json({
+        res.status(500).json({
             success:false,
-            message:`Failed to getting user ${err}`
+            message:`Failed to getting user ${err.message}`
         })
     }
 } 
+
+
+exports.logout = async(req,res) =>{
+    try
+    {
+        req.session.destroy(); 
+        res.clearCookie('token',{httpOnly:true,})
+        res.status(200).json({
+            success:true,
+            message:"Logout Successfully"
+        })
+    }
+    catch(err)
+    {
+        res.status(500).json({
+            success:false,
+            message:`Failed to logout ${err.message}`
+        })
+    }
+}
+
+exports.updateDetails = async(req,res) =>{
+    try
+    {
+        const userId = req.user._id
+        const {firstname,lastname,email,gender,address,state,city,pincode} = req.body;
+        const updateFields = {firstname,lastname,email,gender,address,state,city,pincode};
+
+        Object.keys(updateFields).forEach(key =>updateFields[key]===undefined && delete updateFields[key]); 
+        try{
+            const updatedUser = await User.findByIdAndUpdate(userId,{$set:updateFields},{new:true,runValidators:true})
+            if(!updatedUser)
+                {
+                    res.status(404).json({
+                        success:false,
+                        message:"User not found"
+                    })
+                }
+            res.status(200).json({
+                success:true,
+                user:updatedUser,
+                message:"User Updated Successfully"
+            })
+        }
+        catch(err)
+        {
+            res.status(500).json({
+                success:false,
+                message:"Failed to update user"
+            })
+        }
+    }
+    catch(err)
+    {
+        res.status(500).json({
+            success:false,
+            message:`Failed to ${err.message}`
+        })
+    }
+}

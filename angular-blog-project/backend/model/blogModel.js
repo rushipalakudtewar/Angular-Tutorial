@@ -9,20 +9,31 @@ const blogSchema = new mongoose.Schema({
         type:String,
         required:true
     },
+    tags:{
+        type:[String],
+        required:true
+    },
     author:{
         type:mongoose.Schema.Types.ObjectId,
         ref:'User',
         required:true
     },
-    createdAt:{
-        type:Date,
-        default:Date.now
+    publish:{
+        type:Boolean,
+        default:true
     },
-    updatedAt:{
-        type:Date,
-        default:Date.now
+    blogImage:{
+        originalName:{
+            type:String,
+            required:true
+        },
+        fileName:{
+            type:String,
+            required:true
+        }
     }
-})
+  
+},{timestamps:true})
 
 
 module.exports = mongoose.model('Blogs',blogSchema);

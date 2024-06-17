@@ -1,0 +1,59 @@
+
+        <div class="container vh-100 overflow-y-scroll hidescroll d-flex justify-content-center align-items-start mt-2">
+              <div class="col-12 col-sm-8 d-flex flex-column ">
+                  <div class="d-flex justify-content-center align-items-center">
+                    <input type="text" placeholder="Search by title" class="w-75 p-2 border shadow-lg rounded-2" (input)="onChangeSearch($event)">
+                  </div>
+                  <div *ngIf="isLoading" class="d-flex justify-content-center align-items-center vh-100">
+                    <app-loader></app-loader>
+                  </div>
+                  <div *ngIf="blogs.length>0;else noBlogs" class="">
+                      <div *ngFor="let blog of blogs;let i=index" >
+                          <div class="card border-0 my-3 shadow-lg ">
+                            <div>
+                              <div *ngIf="blog?.blogImage && blog?.blogImage?.fileName" >
+                                <img [src]="'http://localhost:8000/uploads/blogimages/'+ blog.blogImage.fileName" alt={{blog.blogImage.originalImage}} style="width: 100%;height: 300px;object-fit: cover; "/>
+      
+                              </div>
+                              <div class="p-2">
+                                <div class="card-header border-bottom-0 bg-white text-center text-capitalize fs-4">{{ blog.title }} </div>
+                                <div class="card-body">
+                                  <p>{{ blog.content }}</p>
+                                  <ul class="d-flex list-unstyled">
+                                      <li *ngFor="let tag of blog.tags" class="ps-2 text-decoration-none text-primary">#{{ tag }}</li>
+                                  </ul>
+                                
+                                  <!-- <div> -->
+                                    <p  class="position-absolute end-0 me-4 fst-italic" style="font-size: 14px; bottom: 15px;">Author: {{blog?.author?.firstname}} {{blog?.author?.lastname}} </p>
+                                    <p  class="position-absolute bottom-0 end-0 me-4 fst-italic" style="font-size: 12px;">Created At {{blog.updatedAt | date: 'short' }}</p>
+                                  <!-- </div> -->
+
+                                  <button (click)="togglePublish(blog)" 
+                                  [class.publish]="blog?.publish" 
+                                  class="btn btn-toggle">
+                            {{ blog?.publish ? 'Unpublish' : 'Publish' }}
+                          </button>
+                                </div>
+                              
+                              </div>
+                            </div>
+                              
+                            <!-- <div class="card-footer">{{blog.}}</div> -->
+                          </div>
+
+                          
+                      </div>
+                      <div class="my-2 text-center">
+                        <button type="button" class="btn btn-primary" [disabled]="currentPage===1" (click)="previousPage()">Previous</button>
+                        <span class="mx-2">Page {{currentPage}} of {{totalPages}}</span>
+                        <button type="button" class="btn btn-primary" [disabled]="currentPage===totalPages" (click)="nextPage()">Next</button>
+                      </div>
+                  </div>
+                  <ng-template #noBlogs>
+                      <div class="text-center mt-5">
+                        <p class="text-center fs-2">Blog not posted yet!</p>
+                      </div>
+                    </ng-template>    
+              </div>
+          </div>
+      

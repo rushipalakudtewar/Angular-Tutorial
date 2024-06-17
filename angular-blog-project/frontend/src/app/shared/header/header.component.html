@@ -1,0 +1,25 @@
+<nav class="navbar navbar-expand-lg bg-primary " >
+  <div class="container-fluid">
+    <a class="navbar-brand text-color" href="#" >Blogging site</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav" *ngIf="section==='blog'">
+        <a class="nav-link text-color" routerLink="/blog" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }">Home</a>
+        <a class="nav-link text-color" routerLink="/blog/userdetails" routerLinkActive="active-link">Profile</a>
+        <a class="nav-link text-color" (click)="onLogout()">Logout</a>
+      </div>
+      <div class="navbar-nav" *ngIf="section === 'admin'">
+        <a class="nav-link text-color" routerLink="/admin" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }">Home</a>
+        <a class="nav-link text-color" routerLink="/admin/updateblog" routerLinkActive="active-link">Update Blog</a>
+        <a class="nav-link text-color" routerLink="/admin/updateuser" routerLinkActive="active-link">Update User</a>
+        <a class="nav-link text-color" (click)="onLogout()">Logout</a>
+      </div>
+      <div class="navbar-nav text-end" *ngIf="!section">
+        <a class="nav-link text-color" routerLink="/auth/login" routerLinkActive="active-link">Login</a>
+        <a class="nav-link text-color" routerLink="/auth/register" routerLinkActive="active-link">Register</a>
+      </div>
+    </div>
+  </div>
+</nav>

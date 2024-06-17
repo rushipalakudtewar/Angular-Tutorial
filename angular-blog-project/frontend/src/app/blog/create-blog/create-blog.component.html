@@ -1,0 +1,47 @@
+<div class="modal fade" id="blogModal" tabindex="-1" aria-labelledby="createBlogModel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="createBlogModel">{{isEditOption ? 'Update Blog' : 'Create Blog'}}</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="createBlogForm" (ngSubmit)="createdBlog()">
+          <div class="mb-3">
+            <label for="title" class="form-label">Title</label>
+            <input type="text" class="form-control" id="title" formControlName="title" placeholder="Enter Your Title" 
+                   [ngClass]="{'is-invalid': createBlogForm.get('title')?.touched && createBlogForm.get('title')?.invalid}">
+            <div class="invalid-feedback" *ngIf="createBlogForm.get('title')?.touched && createBlogForm.get('title')?.invalid">
+              Please enter a valid title.
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="content" class="form-label">Content</label>
+            <textarea class="form-control" id="content" formControlName="content" rows="3" placeholder="Enter Your Content" 
+                      [ngClass]="{'is-invalid': createBlogForm.get('content')?.touched && createBlogForm.get('content')?.invalid}">
+            </textarea>
+            <div class="invalid-feedback" *ngIf="createBlogForm.get('content')?.touched && createBlogForm.get('content')?.invalid">
+              Please enter valid content.
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="blogImage">Image</label>
+            <input type="file" (change)="onFileSelected($event)" class="form-control">
+          </div>
+          <div class="mb-3" formArrayName="tags">
+            <label for="tags" class="form-label">Tags</label>
+            <div *ngFor="let tag of tags.controls; let i = index" class="d-flex align-content-center mb-2">
+              <input type="text" class="form-control me-2" [formControlName]="i" placeholder="tag{{i+1}}">
+              <button type="button" class="btn btn-danger" (click)="removeTag(i)">Remove</button>
+            </div>
+            <button type="button" class="btn btn-primary ms-2" (click)="addTag()">Add</button>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary" [disabled]="createBlogForm.invalid" data-bs-dismiss="modal">{{isEditOption ? 'Update' : 'Post'}}</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

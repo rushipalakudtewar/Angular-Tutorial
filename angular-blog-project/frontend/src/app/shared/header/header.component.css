@@ -1,0 +1,10 @@
+a{
+    cursor: pointer;
+}
+.text-color{
+    color: white;
+}
+.active-link {
+    color: rgb(235, 233, 233) !important;
+    font-weight:600;
+}

@@ -1,0 +1,31 @@
+.hidescroll {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+
+.hidescroll::-webkit-scrollbar {
+    display: none;  /* Safari and Chrome */
+}
+
+/* blog-list.component.css */
+.btn-toggle {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .btn-toggle.published {
+    background-color: #dc3545;
+  }
+  
+  .btn-toggle:hover {
+    background-color: #0056b3;
+  }
+  
+  .btn-toggle.published:hover {
+    background-color: #c82333;
+  }
+  

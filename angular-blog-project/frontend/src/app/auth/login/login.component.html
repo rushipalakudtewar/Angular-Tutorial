@@ -1,0 +1,59 @@
+
+<div class="container-fluid vh-100 " style="background-color: #EEEEEE;">
+<div class="h-100 d-flex justify-content-center align-items-center ">
+    <div class="col-sm-8 offset-sm-0 h-75">
+        <div class="d-flex h-100 flex-column flex-sm-row shadow-lg bg-white">
+            <div class="card col-12 col-sm-6 rounded-0 border-0">
+              <div class="card-header fs-1 text-center">Login</div>
+              <div class="card-body">
+                <form [formGroup]="loginForm" (ngSubmit)="onLogin()">    
+                    <!-- <div class="float-end">
+                        <a routerLink="/admin/login">Administration login</a>
+                    </div> -->
+                    <div class="mt-4">
+                    <label for="email" class="form-label">Email</label>
+                    <input
+                        type="text"
+                        class="form-control"
+                        id="email"
+                        formControlName="email"
+                        placeholder="Enter Your Email"
+                        [ngClass]="{'is-invalid': loginForm.get('email')?.touched && loginForm.get('email')?.invalid}"
+                        />
+                        <div class="invalid-feedback" *ngIf="loginForm.get('email')?.touched && loginForm.get('email')?.invalid">
+                          Please enter a valid email.
+                        </div>
+                    </div>
+                    <div class="mt-2">
+                    <label for="password" class="form-label">Password</label>
+                    <input
+                        type="password"
+                        class="form-control"
+                        id="password"
+                        formControlName="password"
+                        placeholder="Enter Your Password"
+                        [ngClass]="{'is-invalid': loginForm.get('password')?.touched && loginForm.get('password')?.invalid}"
+                        />
+                        <div class="invalid-feedback" *ngIf="loginForm.get('password')?.touched && loginForm.get('password')?.invalid">
+                          Password is required.
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100 mt-3"  style="background-color: #615EFC;">
+                    Login
+                    </button>
+                    <p class="text-center mt-3">
+                    Dont Have Account? <a routerLink="/auth/register">Create Account</a>
+                    </p>
+                    <p class="text-center mt-3 fst-italic" style="font-size: small;">
+                      Go to <a routerLink="/publishedblogs">Published blogs</a>
+                      </p>
+                </form>
+              </div>
+            </div>
+            <div class="card col-12 col-sm-6 d-none d-sm-block">
+              <img src="https://i1.wp.com/theappentrepreneur.com/wp-content/uploads/2013/02/Blogging-Apps-For-Bloggers.jpg?fit=730%2C382&ssl=1" alt="img" style="width: 100%; height: 100%;object-fit: cover;">
+            </div>
+        </div>
+    </div>
+</div>
+</div>

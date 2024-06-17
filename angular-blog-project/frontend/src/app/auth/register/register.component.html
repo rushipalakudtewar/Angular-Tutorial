@@ -1,0 +1,84 @@
+<div class="container-fluid vh-100 " style="background-color: #EEEEEE;">
+<div class="h-100 d-flex justify-content-center align-items-center ">
+    <div class="col-12 col-sm-8 offset-sm-0 ">
+        <div class="d-flex h-100 flex-column flex-sm-row shadow-lg bg-white">
+            <div class="card col-12 col-sm-6 rounded-0 border-0">
+              <div class="card-header fs-1 text-center">Register</div>
+              <div class="card-body">
+                <form [formGroup]="signupForm" (ngSubmit)="onRegister()">  
+                <div class="mt-2">
+                  <label for="firstname" class="form-label">Firstname</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="firstname"
+                    formControlName="firstname"
+                    placeholder="Enter Your Firstname"
+                    [ngClass]="{'is-invalid': signupForm.get('firstname')?.touched && signupForm.get('firstname')?.invalid}"
+                    />
+                    <div class="invalid-feedback" *ngIf="signupForm.get('firstname')?.touched && signupForm.get('firstname')?.invalid">
+                      Please enter a valid firstname.
+                    </div>
+                </div>
+                <div class="mt-2">
+                  <label for="lastname" class="form-label">Lastname</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="lastname"
+                    formControlName="lastname"
+                    placeholder="Enter Your Lastname"
+                    [ngClass]="{'is-invalid': signupForm.get('lastname')?.touched && signupForm.get('lastname')?.invalid}"
+                    />
+                    <div class="invalid-feedback" *ngIf="signupForm.get('lastname')?.touched && signupForm.get('lastname')?.invalid">
+                      Please enter a valid lastname.
+                    </div>
+                </div>
+                <div class="mt-2">
+                  <label for="email" class="form-label">Email</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="email"
+                    formControlName="email"
+                    placeholder="Enter Your Email"
+                    [ngClass]="{'is-invalid': signupForm.get('email')?.touched && signupForm.get('email')?.invalid}"
+                    />
+                    <div class="invalid-feedback" *ngIf="signupForm.get('email')?.touched && signupForm.get('email')?.invalid">
+                      Please enter a valid email.
+                    </div>
+                </div>
+                <div class="mt-2">
+                  <label for="password" class="form-label">Password</label>
+                  <input
+                    type="password"
+                    class="form-control"
+                    id="password"
+                    formControlName="password"
+                    placeholder="Enter Your Password"
+                    [ngClass]="{'is-invalid': signupForm.get('password')?.touched && signupForm.get('password')?.invalid}"
+                    />
+                    <div class="invalid-feedback" *ngIf="signupForm.get('password')?.touched && signupForm.get('password')?.invalid">
+                      Please enter a valid password.
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary w-100 mt-3"  style="background-color: #615EFC;">
+                  Signup
+                </button>
+                <p class="text-center mt-3">
+                    Already Have Account? <a routerLink="/auth/login">Login</a>
+                </p>
+                <p class="text-center mt-3 fst-italic" style="font-size: small;">
+                  Go to <a routerLink="/publishedblogs">Published blogs</a>
+                  </p>
+              </form>
+              </div>
+            </div>
+            <div class="card col-12 col-sm-6 d-none d-sm-block">
+              <img src="https://i1.wp.com/theappentrepreneur.com/wp-content/uploads/2013/02/Blogging-Apps-For-Bloggers.jpg?fit=730%2C382&ssl=1" alt="img" style="width: 100%; height: 100%;object-fit: cover;">
+            </div>
+        </div>
+    </div>
+</div>
+
+</div>

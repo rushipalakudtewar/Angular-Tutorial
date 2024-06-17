@@ -1,0 +1,14 @@
+<footer class="shadow-lg p-2 d-flex align-items-end justify-content-center">
+    <div *ngIf="section === 'blog'">
+      <!-- Blog footer content -->
+      <p class="text-center">© copyrights for Blogging user site only</p>
+    </div>
+    <div *ngIf="section === 'admin'">
+      <!-- Admin footer content -->
+      <p class="text-center">© copyrights for Admin panel only</p>
+    </div>
+    <div *ngIf="!section">
+      <!-- Admin footer content -->
+      <p class="text-center">© copyrights for Blogging site only</p>
+    </div>
+  </footer>
